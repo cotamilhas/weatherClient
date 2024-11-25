@@ -2,9 +2,9 @@
 require_once("function.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $place = $_POST['id'] ?? null;
+    $local = $_POST['id'] ?? null;
 
-    $getPlaceInfo = getJsonData($place);
+    $getLocalCoords = getLocalCoords($local);
 }
 ?>
 <!DOCTYPE html>
@@ -26,6 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
 </form>
 <br>
-<?php echo $getPlaceInfo;?>
+<p><?php echo $getLocalCoords['name'];?></p>
+<p><?php echo $getLocalCoords['country'];?></p>
+<p><?php echo $getLocalCoords['lat'];?></p>
+<p><?php echo $getLocalCoords['lon'];?></p>
 </body>
 </html>
