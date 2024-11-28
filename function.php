@@ -16,7 +16,7 @@ function getLocalCoords($local)
 {
     $local = urlencode($local);
 
-    $url = "https://nominatim.openstreetmap.org/search?q=$local&format=json&addressdetails=1&limit=1&accept-language=en-gb";
+    $url = "https://nominatim.openstreetmap.org/search?q=$local&format=json&addressdetails=1&limit=1&accept-language=en-gb&polygon_geojson=1";
     $options = [
         'http' => [
             'header' => "User-Agent: cotamilhas\r\n"
@@ -24,7 +24,7 @@ function getLocalCoords($local)
     ];
     $context = stream_context_create($options);
 
-    $json = getJSONContent($url, $context);
+    $json = json_decode(file_get_contents($url, false, $context), true);
 
     if (empty($json) || !isset($json[0])) {
         return null;
@@ -34,15 +34,18 @@ function getLocalCoords($local)
     $lon = $json[0]['lon'] ?? null;
     $name = $json[0]['name'] ?? null; 
     $country = $json[0]['address']['country'] ?? null;
+    $geojson = $json[0]['geojson'] ?? null;
 
     return [
         'lat' => $lat,
         'lon' => $lon,
         'name' => $name,
         'country' => $country,
+        'geojson' => $geojson,
         'url' => $url // DEBUG
     ];
 }
+
 
 // getting local weather
 function getCurrentWeather($lat, $lon)

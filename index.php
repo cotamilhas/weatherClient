@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($local) {
         $getLocalCoords = getLocalCoords($local);
-        $getCurrentWeather = getCurrentWeather($getLocalCoords['lat'], $getLocalCoords['lon']);
+        $getCurrentWeather = getCurrentWeather($getLocalCoords['lat'], $getLocalCoords['lon'], $getLocalCoords['boundingbox']);
     }
 }
 ?>
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <p><i class="fas fa-globe"></i>
                             Longitude: <strong><?php echo $getLocalCoords['lon']; ?></strong>
                         </p>
-                    </div>  
+                    </div>
                 <?php endif; ?>
 
                 <?php if ($getCurrentWeather): ?>
@@ -97,14 +97,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <?php if ($getLocalCoords): ?>
                 <div id="map"></div>
                 <script>
-                    var map = L.map('map').setView([<?php echo $getLocalCoords['lat'] . "," . $getLocalCoords['lon']; ?>], 12);
+                    var map = L.map('map').setView([<?php echo $getLocalCoords['lat'] . "," . $getLocalCoords['lon']; ?>], 15);
 
                     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     }).addTo(map);
 
-                    L.marker([<?php echo $getLocalCoords['lat'] . "," . $getLocalCoords['lon']; ?>]).addTo(map)
+                    L.marker([<?php echo $getLocalCoords['lat'] . "," . $getLocalCoords['lon']; ?>]).addTo(map);
+
+                    var geojsonData = <?php echo json_encode($getLocalCoords['geojson']); ?>;
+
+                    if (geojsonData) {
+                        L.geoJSON(geojsonData).addTo(map);
+                    }
                 </script>
+
             <?php endif; ?>
         </main>
         <footer>
