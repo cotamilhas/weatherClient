@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($local) {
         $getLocalCoords = getLocalCoords($local);
-        $getCurrentWeather = getCurrentWeather($getLocalCoords['lat'], $getLocalCoords['lon'], $getLocalCoords['boundingbox']);
+        $getCurrentWeather = getCurrentWeather($getLocalCoords['lat'], $getLocalCoords['lon']);
     }
 }
 ?>
