@@ -19,14 +19,19 @@
         crossorigin=""></script>
     <title>weatherClient</title>
 </head>
+
 <?php
 require_once("function.php");
+
+$getLocalCoords = null;
+$getCurrentWeather = null;
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $local = $_POST['local'];
 
     if ($local) {
         $getLocalCoords = getLocalCoords($local);
-        $getCurrentWeather = getCurrentWeather($getLocalCoords['lat'], $getLocalCoords['lon']);
+        $getCurrentWeather = getCurrentWeather($getLocalCoords['lat'], $getLocalCoords['lon'], $getLocalCoords['boundingbox']);
     }
 }
 ?>
@@ -111,7 +116,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         L.geoJSON(geojsonData).addTo(map);
                     }
                 </script>
-
             <?php endif; ?>
         </main>
         <footer>
