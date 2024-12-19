@@ -23,6 +23,7 @@
 <?php
 require_once("function.php");
 
+// Inicializar as variáveis para evitar avisos
 $getLocalCoords = null;
 $getCurrentWeather = null;
 
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($local) {
         $getLocalCoords = getLocalCoords($local);
-        $getCurrentWeather = getCurrentWeather($getLocalCoords['lat'], $getLocalCoords['lon'], $getLocalCoords['boundingbox']);
+        $getCurrentWeather = getCurrentWeather($getLocalCoords['lat'], $getLocalCoords['lon']);
     }
 }
 ?>
@@ -128,5 +129,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </footer>
     </div>
 </body>
-
 </html>

@@ -34,7 +34,7 @@ function getLocalCoords($local)
     $lon = $json[0]['lon'] ?? null;
     $name = $json[0]['name'] ?? null; 
     $country = $json[0]['address']['country'] ?? null;
-    $geojson = $json[0]['geojson'] ?? null;
+    $geojson = $json[0]['geojson'] ?? null; // local border
 
     return [
         'lat' => $lat,
