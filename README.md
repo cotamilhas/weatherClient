@@ -9,4 +9,8 @@ This project had a login system but I removed it in this recreated version, I do
 # New weatherClient
 ![weatherClient](img/newver.png)
 
+# TODO
+
+[] Show weather forecast for the next 7 days
+
 
