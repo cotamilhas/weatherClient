@@ -11,6 +11,6 @@ This project had a login system but I removed it in this recreated version, I do
 
 # TODO
 
-[] Show weather forecast for the next 7 days
+[ ] Show weather forecast for the next 7 days
 
 
